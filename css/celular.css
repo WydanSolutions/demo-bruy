@@ -1,0 +1,138 @@
+/*
+ * Cómo se ve la página en el celular y en la tablet.
+ * Va después de estilos.css: acá solo están los ajustes para pantallas chicas, así el archivo
+ * principal queda igual de simple. Los colores siguen saliendo de las variables de :root.
+ * Las clases t-mini / t-ficha / t-ancha se las pone js/celular.js a cada tabla.
+ */
+
+/* El aviso de "deslizá la tabla" solo se ve en pantallas chicas. */
+.tw-aviso{display:none}
+
+/* La barra de pestañas se pega justo debajo de la cabecera (js/celular.js mide cuánto mide). */
+nav{top:var(--alto-cabecera,88px)}
+
+@media(max-width:760px){
+
+  /* ---- Aire general ---- */
+  main{padding:16px 12px 34px}
+  header{padding:9px 12px;gap:10px}
+  nav{padding:0 10px 5px}
+  .nav-btn{padding:10px 12px;font-size:11.5px;gap:6px}
+  .view-head{gap:10px;margin-bottom:14px}
+  .view-head h2{font-size:21px}
+  .card-body{padding:6px 14px 14px}
+  .card-head{padding:11px 14px}
+
+  /* ---- Que el celular no agrande la pantalla al tocar un campo ---- */
+  input,select,textarea,.cell-in,.filt,.search input{font-size:16px}
+
+  /* ---- Barra de herramientas: el buscador ocupa todo el ancho ---- */
+  .toolbar{gap:7px}
+  .search{flex:1 1 100%;max-width:none}
+  .filt{flex:1 1 auto;max-width:none;min-width:0}
+  .btn{padding:9px 12px}
+  .btn-sm{padding:8px 11px}
+
+  /* ---- Los meses: renglones parejos que ocupan todo el ancho ---- */
+  .months{gap:5px}
+  .mbtn{flex:1 1 44px;padding:9px 2px;font-size:11.5px;text-align:center}
+
+  /* ---- Indicadores: de a dos y más compactos, para no tener que bajar tanto ---- */
+  /* !important porque algunas secciones fijan las columnas desde el código. */
+  .kpis,.kpis.kpis-4,.kpis.kpis-3,.kpis.kpis-2{grid-template-columns:repeat(2,1fr)!important;gap:9px;margin-bottom:16px}
+  .kpi{padding:11px 12px}
+  .kpi .k-label{font-size:9.5px;letter-spacing:.5px}
+  .kpi .k-num,.kpi .k-num.money{font-size:19px;margin-top:3px}
+  .kpi .k-foot{font-size:10.5px}
+
+  /* ---- Ficha del cliente: el nombre arriba y los botones en su propio renglón ---- */
+  .exp-dhead{flex-wrap:wrap;gap:10px 12px;padding-bottom:13px}
+  .exp-dname{font-size:19px}
+  .exp-dhead>div{flex:1 1 calc(100% - 66px)!important;min-width:0}
+  .exp-dhead .btn{flex:1 1 45%;justify-content:center}
+  .exp-grid{gap:9px}
+  .exp-f{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+  .exp-f .exp-fl{margin-bottom:0;flex:0 0 auto}
+  .exp-f .exp-fv{text-align:right;min-width:0;word-break:break-word}
+
+  /* ---- La marca de Wydan deja de flotar sobre el contenido ---- */
+  .wm-app{position:static;justify-content:center;padding:0 0 18px;opacity:.45}
+
+  /* ---- Ventanas de alta y edición ---- */
+  .modal-bg{padding:14px 10px 28px}
+  .modal-head,.modal-foot{padding:13px 15px}
+  .modal-body{padding:16px 15px}
+  .modal-foot{flex-wrap:wrap}
+  .modal-foot .right{flex:1;justify-content:flex-end}
+
+  /* ---- La lista de opciones: más grande para el dedo ---- */
+  .lista-op{padding:13px 12px;font-size:15px}
+  input.con-lista{background-position:right 7px center}
+
+  /* ---- Botones de cada fila: siempre visibles y más fáciles de tocar ---- */
+  .row-act{opacity:1;gap:2px}
+  .row-act .btn-ghost{padding:7px 9px;font-size:15px}
+
+  /* ======================= TABLAS ======================= */
+
+  /* Pocas columnas: entran enteras, sin deslizar. */
+  table.t-mini{min-width:0!important}
+  table.t-mini thead th,table.t-mini tbody td{padding:9px 8px}
+  table.t-mini thead th{white-space:normal;font-size:10px;letter-spacing:.3px}
+  table.t-mini .name-cell{min-width:0}
+
+  .tw-aviso{display:block;font-size:11.5px;color:var(--muted);margin:0 0 6px;padding-left:2px}
+
+  /* Muchas columnas (grillas de los 12 meses, sueldos): se desliza de costado y la primera
+     columna queda siempre a la vista, así nunca se pierde de quién es la fila. */
+  .table-wrap{-webkit-overflow-scrolling:touch}
+  table.t-ancha thead th,table.t-ancha tbody td{padding:9px 10px}
+  table.t-ancha thead th:first-child,table.t-ancha tbody td:first-child{
+    position:sticky;left:0;z-index:2;background:var(--card);box-shadow:1px 0 0 var(--border)}
+  table.t-ancha thead th:first-child{background:var(--azul-osc);z-index:3}
+  table.t-ancha tbody tr:hover td:first-child{background:var(--azul-claro)}
+  table.t-ancha .name-cell{min-width:152px}
+
+  /* Listas de registros: cada fila pasa a ser una ficha. */
+  .tw-ficha{background:none;border:none;box-shadow:none;overflow:visible;border-radius:0}
+  table.t-ficha{display:block;min-width:0!important}
+  table.t-ficha thead{display:none}
+  table.t-ficha tbody{display:block}
+  table.t-ficha tbody tr{display:block;background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 12px 8px;margin-bottom:9px}
+  table.t-ficha tbody tr:hover{background:var(--card)}
+  table.t-ficha tbody td{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:6px 0;border-bottom:1px solid var(--border-soft);text-align:left!important;white-space:normal;
+    width:auto!important;min-width:0}
+  table.t-ficha tbody td:last-child{border-bottom:none}
+  table.t-ficha tbody td::before{content:attr(data-l);flex:0 0 auto;font-size:10px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+  /* Las celdas sin título (marcar hecho, botones) van solas, alineadas a la derecha. */
+  table.t-ficha tbody td:not([data-l]){justify-content:flex-end}
+  table.t-ficha tbody td:not([data-l])::before{display:none}
+  /* El aviso de "no hay registros" ocupa toda la ficha. */
+  table.t-ficha tbody td[colspan]{display:block;padding:4px 0;border-bottom:none}
+  table.t-ficha tbody tr:has(td[colspan]){padding:0}
+  /* Lo que se escribe directo en la lista: a la derecha y con el borde a la vista,
+     para que se note que se puede tocar y corregir. */
+  table.t-ficha .cell-in{width:auto;flex:1;min-width:0;text-align:right;
+    border-color:var(--border-soft);background:#fff}
+  table.t-ficha .cell-in.fit{max-width:none}
+  table.t-ficha .name-cell{min-width:0;flex:1;justify-content:flex-end}
+  table.t-ficha .row-act{justify-content:flex-end}
+  /* La fila de totales se distingue del resto. */
+  table.t-ficha tbody tr.gst-tot,table.t-ficha tbody tr.hon-tot{background:var(--azul-claro)}
+  table.t-ficha tbody tr.hon-tot td{background:transparent!important;color:var(--azul-osc)}
+}
+
+/* Celulares angostos: un poco más justo todavía. */
+@media(max-width:400px){
+  main{padding:14px 9px 30px}
+  .view-head h2{font-size:19px}
+  .kpi .k-num,.kpi .k-num.money{font-size:17px}
+  table.t-ficha tbody tr{padding:5px 10px 7px}
+  table.t-ficha tbody td::before{font-size:9.5px;letter-spacing:.5px}
+  /* En los formularios, los campos que van de a dos pasan a uno abajo del otro:
+     en un celular angosto quedaban demasiado apretados para escribir. */
+  .field-2{grid-template-columns:1fr;gap:0}
+}

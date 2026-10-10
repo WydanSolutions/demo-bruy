@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bruy · Laura Cabrera</title>
+<link rel="icon" type="image/png" href="img/favicon.png?v=202610100137">
+<meta name="theme-color" content="#063463">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css?v=202610100137">
+<link rel="stylesheet" href="css/bienvenida.css?v=202610100137">
+<link rel="stylesheet" href="css/finanzas.css?v=202610100137">
+<link rel="stylesheet" href="css/celular.css?v=202610100137">
+</head>
+<body>
+
+<!-- BIENVENIDA: la presentación de la demostración (lo primero que se ve al abrir el link) -->
+<div id="bienvenida" class="hidden">
+  <div class="bv-in">
+    <div class="bv-marca"><img src="img/wydan-horizontal.png?v=202610100137" alt="Wydan Solutions"></div>
+    <div class="bv-para">Sistema de gestión hecho para</div>
+    <h1 class="bv-t" id="bv-nombre"></h1>
+    <div class="bv-s" id="bv-rol"></div>
+    <p class="bv-frase" id="bv-frase"></p>
+    <div class="bv-vista" id="bv-vista"></div>
+    <button class="bv-btn" onclick="entrarDemo()">Entrar a la demostración <b>&rarr;</b></button>
+    <div class="bv-pie">Datos de ejemplo · nada de lo que pruebes acá es real</div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-card">
+    <img src="img/logo.png?v=202610100137" alt="bruy · Laura Cabrera">
+    <hr class="lsep">
+    <label class="real-only">Correo</label>
+    <input class="real-only" type="email" id="login-email" placeholder="tucorreo@ejemplo.com" autocomplete="username" inputmode="email" onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+    <label>Contraseña</label>
+    <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button id="login-btn" onclick="doLogin()">Ingresar</button>
+    <div class="login-err" id="login-err"></div>
+    <a class="login-forgot" onclick="forgotPass()">¿Olvidaste tu contraseña?</a>
+    <div class="login-hint demo-only">Acceso de demostración · contraseña: 1234</div>
+    <a class="login-volver demo-only" onclick="mostrarBienvenida()">‹ Volver al inicio</a>
+  </div>
+  <div class="wm-login"><span>Desarrollado por</span><img src="img/wydan-horizontal.png?v=202610100137" alt="Wydan Solutions" onerror="this.remove()"></div>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+<header>
+  <div class="brand">
+    <img src="img/monograma.png?v=202610100137" alt="bruy">
+    <div><h1 id="brand-name">Laura Cabrera</h1><p id="brand-sub">Contadora Pública</p></div>
+  </div>
+  <div class="header-actions">
+    <button class="hbtn hbtn-inicio demo-only" onclick="mostrarBienvenida()" title="Volver a la pantalla de inicio">⇦ <span>Inicio</span></button>
+    <div style="position:relative">
+      <button class="hbtn" onclick="hdrMenu(event)" title="Más">⋯</button>
+      <div class="hdr-menu" id="hdr-menu" onclick="event.stopPropagation()"><div class="hm-head"><span class="av" id="menu-av">L</span><div><div class="n">Laura Cabrera</div><div class="r">Contadora Pública</div></div></div><button class="hm-item" onclick="miPerfil();closeHdr()"><span class="hm-ic">👤</span><span><span class="hm-t">Mi perfil</span><span class="hm-s">Tus datos de contacto</span></span></button><button class="hm-item" onclick="seguridad();closeHdr()"><span class="hm-ic">🛡</span><span><span class="hm-t">Seguridad</span><span class="hm-s">Sesión y protección</span></span></button><button class="hm-item" onclick="apariencia();closeHdr()"><span class="hm-ic">🎨</span><span><span class="hm-t">Apariencia</span><span class="hm-s">Color de la página</span></span></button><button class="hm-item" onclick="switchView('config');closeHdr()"><span class="hm-ic">⚙</span><span><span class="hm-t">Configuración</span><span class="hm-s">Google Calendar y año fiscal</span></span></button><div class="hm-sep"></div><button class="hm-item" onclick="doLogout();closeHdr()"><span class="hm-ic" style="background:var(--red-l);color:var(--red)">⎋</span><span><span class="hm-t" style="color:var(--red)">Cerrar sesión</span><span class="hm-s">Salir de la app</span></span></button></div>
+    </div>
+    <div class="user-chip"><span class="user-av" id="hdr-av">L</span>Laura</div>
+  </div>
+</header>
+<nav id="nav"></nav>
+<main>
+  <section class="view active" id="view-panel"></section>
+  <section class="view" id="view-decl"></section>
+  <section class="view" id="view-tareas"></section>
+  <section class="view" id="view-empresas"></section>
+  <section class="view" id="view-sprof"></section>
+  <section class="view" id="view-sueldos"></section>
+  <section class="view" id="view-clientes"></section>
+  <section class="view" id="view-finanzas">
+    <div class="fin-tabs" id="fin-tabs"></div>
+    <div class="fin-pane" id="view-hon"></div>
+    <div class="fin-pane" id="view-gastos"></div>
+    <div class="fin-pane" id="view-imp"></div>
+  </section>
+  <section class="view" id="view-cal"></section>
+  <section class="view" id="view-config"></section>
+</main>
+<div class="wm-app"><img src="img/wydan-horizontal.png?v=202610100137" alt="Wydan Solutions" onerror="this.remove()"></div>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="modal-title">Nuevo</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="modal-del" style="color:var(--red);display:none" onclick="deleteCurrent()">🗑 Eliminar</button>
+      <div class="right"><button class="btn" id="modal-cancel" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveForm()">Guardar</button></div>
+    </div>
+  </div>
+</div>
+<div class="dd" id="dd"></div>
+<div class="toast" id="toast"></div>
+
+<datalist id="dl-clientes"></datalist>
+<datalist id="dl-tareas"><option>Certificado único DGI</option><option>Certificado común BPS</option><option>Certificado contable</option><option>Flujo de fondos</option><option>Estado de situación</option></datalist>
+<datalist id="dl-etq"><option>DGI</option><option>BPS</option><option>Banco</option><option>Cliente nuevo</option><option>Interno</option><option>Urgente</option></datalist>
+<datalist id="dl-gastocats"></datalist>
+<datalist id="dl-proveedores"></datalist>
+<datalist id="dl-plat"><option>Visa</option><option>Mastercard</option><option>OCA</option><option>Creditel</option><option>Pronto</option><option>Cabal</option></datalist>
+<datalist id="dl-gastos"><option>Alquiler de la oficina</option><option>UTE</option><option>OSE</option><option>Antel fibra y teléfono</option><option>Resma de hojas</option><option>Tóner</option><option>Café y cocina</option><option>Limpieza</option><option>Contador / asesoramiento</option></datalist>
+<datalist id="dl-medio"><option>BROU</option><option>Itaú</option><option>Santander</option><option>Scotia</option><option>BBVA</option><option>Efectivo</option><option>Transferencia</option></datalist>
+
+<!-- Scripts: el ORDEN importa. app.js siempre al final. Una sección = un archivo. -->
+<script src="js/modo.js?v=202610100137"></script>
+<script src="js/constantes.js?v=202610100137"></script>
+<script src="js/datos.js?v=202610100137"></script>
+<script src="js/ejemplos.js?v=202610100137"></script>
+<script src="js/utils.js?v=202610100137"></script>
+<script src="js/exportar.js?v=202610100137"></script>
+<script src="js/nav.js?v=202610100137"></script>
+<script src="js/celular.js?v=202610100137"></script>
+<script src="js/lista.js?v=202610100137"></script>
+<script src="js/panel.js?v=202610100137"></script>
+<script src="js/declaraciones.js?v=202610100137"></script>
+<script src="js/tareas.js?v=202610100137"></script>
+<script src="js/grillas.js?v=202610100137"></script>
+<script src="js/sueldos.js?v=202610100137"></script>
+<script src="js/clientes.js?v=202610100137"></script>
+<script src="js/honorarios.js?v=202610100137"></script>
+<script src="js/honorarios-factura.js?v=202610100137"></script>
+<script src="js/gastos.js?v=202610100137"></script>
+<script src="js/gastos-form.js?v=202610100137"></script>
+<script src="js/vencimientos.js?v=202610100137"></script>
+<script src="js/impuestos.js?v=202610100137"></script>
+<script src="js/finanzas.js?v=202610100137"></script>
+<script src="js/calendario.js?v=202610100137"></script>
+<script src="js/config.js?v=202610100137"></script>
+<script src="js/bienvenida.js?v=202610100137"></script>
+<script src="js/apariencia.js?v=202610100137"></script>
+<script src="js/formularios.js?v=202610100137"></script>
+<script src="js/boveda.js?v=202610100137"></script>
+<script src="js/login.js?v=202610100137"></script>
+<script src="js/app.js?v=202610100137"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+/*
+ * Pantalla de bienvenida: la presentación de la demostración.
+ * Es la pantalla de WYDAN (no de la clienta), así que usa la identidad de Wydan: el azul marino
+ * y el gris acero de la página comercial, con Poppins e Inter.
+ * Los colores de la clienta aparecen solo dentro de la vista previa.
+ */
+:root{
+  --w-azul:#14294A; --w-azul-2:#1B3A5B; --w-acero:#6E7C8C; --w-plata:#9AA6B2;
+  --w-fondo:#F4F6F9; --w-borde:#E2E8F0; --w-texto-suave:#5A6773;
+  --w-sombra:0 10px 30px rgba(20,41,74,.10); --w-sombra-fuerte:0 18px 50px rgba(20,41,74,.20);
+  --w-titulo:'Poppins',system-ui,sans-serif; --w-cuerpo:'Inter',system-ui,sans-serif;
+}
+
+#bienvenida{position:fixed;inset:0;z-index:600;overflow:auto;display:flex;align-items:flex-start;justify-content:center;
+  padding:40px 18px;font-family:var(--w-cuerpo);
+  background:radial-gradient(900px 420px at 50% -8%,#e6ebf3 0%,transparent 62%),var(--w-fondo)}
+.bv-in{width:100%;max-width:660px;text-align:center;margin:auto}  /* margin:auto centra y, si no entra, deja ver todo al desplazar */
+
+.bv-marca{margin-bottom:30px}
+.bv-marca img{width:224px;max-width:60%;height:auto;display:block;margin:0 auto}
+
+.bv-para{font-size:10.5px;letter-spacing:3.6px;text-transform:uppercase;color:var(--w-plata);font-weight:600}
+.bv-t{font-family:var(--w-titulo);font-size:33px;font-weight:700;color:var(--w-azul);line-height:1.15;letter-spacing:-.4px;margin-top:8px}
+.bv-s{font-size:11px;letter-spacing:3.4px;text-transform:uppercase;color:var(--w-acero);margin-top:9px;font-weight:500}
+/* Las marcas que se escriben siempre en minúscula (bruy) no se pasan a mayúsculas. */
+.bv-s .marca{text-transform:none;letter-spacing:.2px;font-weight:700;font-size:13px}
+.bv-frase{font-size:16.5px;line-height:1.6;color:var(--w-texto-suave);margin:22px auto 0;max-width:470px}
+
+.bv-vista{margin:30px auto 26px;max-width:520px}
+.bv-btn{display:inline-flex;align-items:center;gap:10px;background:var(--w-azul);color:#fff;border:none;
+  padding:15px 30px;border-radius:10px;font-family:var(--w-cuerpo);font-size:14px;font-weight:600;letter-spacing:.3px;
+  box-shadow:var(--w-sombra);transition:transform .18s,background .18s,box-shadow .18s}
+.bv-btn:hover{background:var(--w-azul-2);transform:translateY(-2px);box-shadow:var(--w-sombra-fuerte)}
+.bv-btn b{display:inline-block;transition:transform .18s}
+.bv-btn:hover b{transform:translateX(5px)}
+.bv-pie{margin-top:26px;font-size:12px;color:var(--w-plata)}
+
+/* Vista previa de la pantalla de trabajo: es un dibujo a escala, no la pantalla real. */
+.bv-prev{border-radius:14px;overflow:hidden;padding:20px;box-shadow:var(--w-sombra-fuerte);
+  background:linear-gradient(160deg,#22456f 0%,#0c1c34 100%)}
+.mini-app{width:100%;overflow:hidden;border-radius:8px;background:#eaeef6;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+
+.mini-top{display:flex;align-items:center;gap:8px;padding:0 11px;height:32px;background:var(--azul)}
+.mini-mark{width:19px;height:19px;background:#fff;border-radius:4px}
+.mini-name{height:6px;width:76px;background:rgba(255,255,255,.9);border-radius:2px}
+
+.mini-nav{display:flex;align-items:flex-end;padding:0 11px;height:17px;gap:6px;background:var(--azul)}
+.mini-tab{height:11px;width:36px;background:rgba(255,255,255,.17);border-radius:4px 4px 0 0}
+.mini-tab.on{background:rgba(255,255,255,.34);box-shadow:inset 0 -3px 0 var(--acento)}
+
+.mini-body{padding:11px}
+.mini-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:10px}
+.mini-kpi{height:36px;background:#fff;border:1px solid #cfd6e2;border-radius:5px;position:relative}
+.mini-kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:5px 0 0 5px;background:var(--azul)}
+.mini-kpi:nth-child(2)::before{background:var(--acento)}
+.mini-kpi:nth-child(3)::before{background:var(--green)}
+
+.mini-tb{background:#fff;border:1px solid #cfd6e2;border-radius:5px;overflow:hidden}
+.mini-th{height:13px;background:var(--azul-osc)}
+.mini-tr{height:13px;border-top:1px solid #e6e9f0}
+
+@media(max-width:700px){
+  .bv-t{font-size:26px}
+  .bv-frase{font-size:15px}
+  .bv-marca img{width:186px}
+  .bv-prev{padding:13px;border-radius:11px}
+}
+
+/* Volver a la pantalla de inicio, desde el ingreso */
+.login-volver{display:inline-flex;align-items:center;gap:6px;margin-top:18px;padding:8px 15px;border-radius:20px;
+  font-size:12px;font-weight:700;color:var(--azul);background:var(--azul-claro);cursor:pointer;transition:.15s}
+.login-volver:hover{background:var(--azul);color:#fff}
+
+/* Entrada: cada bloque aparece de abajo hacia arriba, uno atrás del otro. */
+@keyframes bvUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.bv-in>*{animation:bvUp .55s cubic-bezier(.2,.7,.3,1) both}
+.bv-marca{animation-delay:.03s} .bv-para{animation-delay:.10s} .bv-t{animation-delay:.14s}
+.bv-s{animation-delay:.20s} .bv-frase{animation-delay:.28s} .bv-vista{animation-delay:.38s}
+.bv-btn{animation-delay:.50s} .bv-pie{animation-delay:.60s}
